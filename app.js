@@ -54,6 +54,9 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
         }
     }
 
+    //TODO: limit values of further selects depending on input selection, also make selects disabled so they have to be selected in a row
+    //TODO: allow newentry for select(), objektstruktur wird erweitert wenn eintrag nicht vorhanden
+
     document.getElementById('value').addEventListener('keyup', function(e) {
         if (e.keyCode === 13) {
             pushValue(e.target.value, [select1.value, select2.value, select3.value]);
@@ -87,6 +90,8 @@ function pushValue (values, positions) {
         } else {
             console.log(value + ' was not added, because it would be a duplicate');
         }
+
+        //TODO: eval ersetzen durch abfragen von objektstrukur. wenn property nicht existiert neu erstellen, wenn property array kann kein objekt mehr hinzugefügt werden --> Fehler schmeißen
     });
 
     localStorage.setItem('dataGenerator', JSON.stringify(data));
