@@ -1,6 +1,6 @@
 /** handle data **/
 
-var data  = localStorage.getItem('dataGenerator') || {
+var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
     person: {
         address: {
             firstName: [],
@@ -22,21 +22,79 @@ var data  = localStorage.getItem('dataGenerator') || {
     }
 };
 
-function pushValue (value, position) {
-    if (!value && value !== 0)
-        throw 'Error: Invalid position given to push into data.';
+// initialize
+(function(){
+    var select1 = document.getElementById('depth1')
+    for (var key_0 in data) {
+        var option_0 = document.createElement('option');
+        option_0.value = option_0.textContent = key_0;
 
-    if (!position instanceof Array || position.length < 1)
-        throw 'Error: Invalid position given to push into data.';
-
-    var evalString = 'data';
-    for (var i = 0; i < position.length; i++) {
-        evalString += '["' + position[i] + '"]';
+        select1.appendChild(option_0);
     }
 
-    evalString += 'push(' + value + ')';
+    var select2 = document.getElementById('depth2')
+    for (var key_1 in data) {
+        for (var key_2 in data[key_1]) {
+            var option_1 = document.createElement('option');
+            option_1.value = option_1.textContent = key_2;
 
-    eval(evalString);
+            select2.appendChild(option_1);
+        }
+    }
+
+    var select3 = document.getElementById('depth3')
+    for (var key_3 in data) {
+        for (var key_4 in data[key_3]) {
+            for (var key_5 in data[key_3][key_4]) {
+                var option_2 = document.createElement('option');
+                option_2.value = option_2.textContent = key_5;
+
+                select3.appendChild(option_2);
+            }
+        }
+    }
+
+    document.getElementById('value').addEventListener('keyup', function(e) {
+        if (e.keyCode === 13) {
+            pushValue(e.target.value, [select1.value, select2.value, select3.value]);
+        }
+    });
+}());
+
+function pushValue (values, positions) {
+    if (!values && values !== 0)
+        throw 'Error: Invalid value given to push into data.';
+
+    if (!positions instanceof Array || positions.length < 1)
+        throw 'Error: Invalid position given to push into data.';
+
+    var delimiter = document.getElementById('delimiter').value || ',';
+
+    values = values.split(delimiter);
+
+    values.forEach(function(value) {
+
+        var evalString = 'data';
+        for (var i = 0; i < positions.length; i++) {
+            evalString += '["' + positions[i] + '"]';
+        }
+
+        value = value.trim()
+
+        if (!~eval(evalString).indexOf(value)) {
+            evalString += '.push("' + value + '")';
+            eval(evalString);
+        } else {
+            console.log(value + ' was not added, because it would be a duplicate');
+        }
+    });
+
+    localStorage.setItem('dataGenerator', JSON.stringify(data));
+    showValues();
+}
+
+function showValues() {
+    document.querySelector('pre').textContent = JSON.stringify(data, null, 3);
 }
 
 function randomNumBetween (max, min) {
