@@ -110,10 +110,11 @@ function pushValue (values, positions) {
                     dataLinkedCopy.push(values[j]);
             }
         }
+
         // if we end here and dont have an existing array
-        else if (positions.length === i+1 && !dataLinkedCopy) {
+        else if (positions.length === i+1 && !dataLinkedCopy)
             dataLinkedCopyParent[positions[i]] = values;
-        }
+
         // if we dont end here and dont have an existing object
         else if (positions.length > i+1 && dataLinkedCopy && positions[i+1] && !dataLinkedCopy[positions[i+1]])
             dataLinkedCopyParent[positions[i]] = {};
