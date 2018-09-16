@@ -1,0 +1,22 @@
+.depth-pair {
+    margin: 10px;
+    position: relative;
+    border: 1px solid darkgrey;
+    width: 200px;
+    height: 19px;
+}
+
+.depth-pair input {
+    position: relative;
+    z-index: 2;
+    width: calc(100% - 20px);
+    border: none;
+}
+
+.depth-pair select {
+    position: absolute;
+    z-index: 1;
+    height: 19px;
+    width: 100%;
+    border: none;
+}

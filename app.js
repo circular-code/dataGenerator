@@ -54,13 +54,26 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
         }
     }
 
+    var input1 = document.getElementById('depth-input1'),
+        input2 = document.getElementById('depth-input2'),
+        input3 = document.getElementById('depth-input3');
+
+    select1.addEventListener('change', function() {
+        input1.value = select1.value;
+    });
+    select2.addEventListener('change', function() {
+        input2.value = select2.value;
+    });
+    select3.addEventListener('change', function() {
+        input3.value = select3.value;
+    });
+
     //TODO: limit values of further selects depending on input selection, also make selects disabled so they have to be selected in a row
     //TODO: allow newentry for select(), objektstruktur wird erweitert wenn eintrag nicht vorhanden
 
     document.getElementById('value').addEventListener('keyup', function(e) {
-        if (e.keyCode === 13) {
-            pushValue(e.target.value, [select1.value, select2.value, select3.value]);
-        }
+        if (e.keyCode === 13)
+            pushValue(e.target.value, [input1.value, input2.value, input3.value]);
     });
 }());
 
@@ -74,10 +87,8 @@ function pushValue (values, positions) {
     var delimiter = document.getElementById('delimiter').value || ',';
     values = values.split(delimiter);
 
-    // trim values
-    for (var k = 0; k < values.length; k++) {
-        values[k] = values[k].trim();
-    }
+    // sanitize input values
+    values = sanitizeArray(values);
 
     var dataLinkedCopy = data;
 
@@ -100,7 +111,7 @@ function pushValue (values, positions) {
             }
         }
         // if we end here and dont have an existing array
-        else if (positions.length === i+1 && dataLinkedCopy) {
+        else if (positions.length === i+1 && !dataLinkedCopy) {
             dataLinkedCopyParent[positions[i]] = values;
         }
         // if we dont end here and dont have an existing object
@@ -114,6 +125,19 @@ function pushValue (values, positions) {
 
 function showValues() {
     document.querySelector('pre').textContent = JSON.stringify(data, null, 3);
+}
+
+function sanitizeArray (array) {
+    for (var k = array.length -1; k + 1; k--) {
+        array[k] = array[k].trim();
+
+        for (var l = array.length - 1; l + 1; l--) {
+            if (array[l] === array[k] && k !== l) {
+                array.splice(k,1);
+            }
+        }
+    }
+    return array;
 }
 
 function randomNumBetween (max, min) {
