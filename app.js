@@ -72,27 +72,41 @@ function pushValue (values, positions) {
         throw 'Error: Invalid position given to push into data.';
 
     var delimiter = document.getElementById('delimiter').value || ',';
-
     values = values.split(delimiter);
 
-    values.forEach(function(value) {
+    // trim values
+    for (var k = 0; k < values.length; k++) {
+        values[k] = values[k].trim();
+    }
 
-        var evalString = 'data';
-        for (var i = 0; i < positions.length; i++) {
-            evalString += '["' + positions[i] + '"]';
+    var dataLinkedCopy = data;
+
+    // iterate over data
+    for (var i = 0; i < positions.length; i++) {
+
+        // keep a copy of the parent, in order to make enable reassigning dataLinkedCopy with an Array or Object (would loose reference otherwise)
+        var dataLinkedCopyParent = dataLinkedCopy;
+
+        // override dataLinkedCopy each time with new deeper linked copy, keeping the reference so values actualy change in data, but data will not be reassigned
+        dataLinkedCopy = dataLinkedCopy[positions[i]];
+
+        // if we end here and have an existing array
+        if (positions.length === i+1 && dataLinkedCopy instanceof Array) {
+
+            // iterate over values
+            for (var j = 0; j < values.length; j++) {
+                if (dataLinkedCopy.indexOf(values[j]) === -1)
+                    dataLinkedCopy.push(values[j]);
+            }
         }
-
-        value = value.trim()
-
-        if (!~eval(evalString).indexOf(value)) {
-            evalString += '.push("' + value + '")';
-            eval(evalString);
-        } else {
-            console.log(value + ' was not added, because it would be a duplicate');
+        // if we end here and dont have an existing array
+        else if (positions.length === i+1 && dataLinkedCopy) {
+            dataLinkedCopyParent[positions[i]] = values;
         }
-
-        //TODO: eval ersetzen durch abfragen von objektstrukur. wenn property nicht existiert neu erstellen, wenn property array kann kein objekt mehr hinzugefügt werden --> Fehler schmeißen
-    });
+        // if we dont end here and dont have an existing object
+        else if (positions.length > i+1 && dataLinkedCopy && positions[i+1] && !dataLinkedCopy[positions[i+1]])
+            dataLinkedCopyParent[positions[i]] = {};
+    }
 
     localStorage.setItem('dataGenerator', JSON.stringify(data));
     showValues();
