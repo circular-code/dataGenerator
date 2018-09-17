@@ -68,8 +68,7 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
         input3.value = select3.value;
     });
 
-    //TODO: limit values of further selects depending on input selection, also make selects disabled so they have to be selected in a row
-    //TODO: allow newentry for select(), objektstruktur wird erweitert wenn eintrag nicht vorhanden
+    //TODO: inputvalidierung ( alle positionen müssen der reihe nach ausgefüllt sein) --> warnung key X existiert nicht, er wird neu angelegt wenn sie bestätigen
 
     document.getElementById('value').addEventListener('keyup', function(e) {
         if (e.keyCode === 13)
@@ -88,7 +87,10 @@ function pushValue (values, positions) {
     values = values.split(delimiter);
 
     // sanitize input values
-    values = sanitizeArray(values);
+    values = sanitizeInputArray(values);
+    // sanitize and validate positions
+    positions = sanitizePositionsArray(positions);
+    //TODO: validatePositionsArray(positions);
 
     var dataLinkedCopy = data;
 
@@ -99,25 +101,30 @@ function pushValue (values, positions) {
         var dataLinkedCopyParent = dataLinkedCopy;
 
         // override dataLinkedCopy each time with new deeper linked copy, keeping the reference so values actualy change in data, but data will not be reassigned
-        dataLinkedCopy = dataLinkedCopy[positions[i]];
+        if (dataLinkedCopy[positions[i]] instanceof Object && !(dataLinkedCopy[positions[i]] instanceof Array)) {
+            dataLinkedCopy = dataLinkedCopy[positions[i]];
+            continue;
+        }
 
         // if we end here and have an existing array
-        if (positions.length === i+1 && dataLinkedCopy instanceof Array) {
+        if (positions.length === i+1 && dataLinkedCopy[positions[i]] instanceof Array) {
 
             // iterate over values
             for (var j = 0; j < values.length; j++) {
-                if (dataLinkedCopy.indexOf(values[j]) === -1)
-                    dataLinkedCopy.push(values[j]);
+                if (dataLinkedCopy[positions[i]].indexOf(values[j]) === -1)
+                dataLinkedCopy[positions[i]].push(values[j]);
             }
         }
 
         // if we end here and dont have an existing array
-        else if (positions.length === i+1 && !dataLinkedCopy)
+        else if (positions.length === i+1 && !dataLinkedCopy[positions[i]])
             dataLinkedCopyParent[positions[i]] = values;
 
         // if we dont end here and dont have an existing object
-        else if (positions.length > i+1 && dataLinkedCopy && positions[i+1] && !dataLinkedCopy[positions[i+1]])
+        else if (positions.length > i+1 && dataLinkedCopy && positions[i+1] && !dataLinkedCopy[positions[i+1]]) {
             dataLinkedCopyParent[positions[i]] = {};
+            i--;
+        }
     }
 
     localStorage.setItem('dataGenerator', JSON.stringify(data));
@@ -128,7 +135,7 @@ function showValues() {
     document.querySelector('pre').textContent = JSON.stringify(data, null, 3);
 }
 
-function sanitizeArray (array) {
+function sanitizeInputArray (array) {
     for (var k = array.length -1; k + 1; k--) {
         array[k] = array[k].trim();
 
@@ -137,6 +144,14 @@ function sanitizeArray (array) {
                 array.splice(k,1);
             }
         }
+    }
+    return array;
+}
+
+function sanitizePositionsArray (array) {
+    for (var k = array.length -1; k + 1; k--) {
+        if (array[k].trim() === '')
+            array.splice(k,1);
     }
     return array;
 }
@@ -182,3 +197,8 @@ function generateData (count) {
     }
     return items;
 }
+
+// TODO:
+// neue Spalte (key) anlegen --> validieren gültiger key/variablenName --> zu Objektstruktur hinzufügen
+// Spalten und Inhalte und Anzahl auswählen die exportiert werden sollen
+// output:javascript, json, xml, csv, raw (z.B. bei nur einer Spalte)
