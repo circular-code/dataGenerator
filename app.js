@@ -100,6 +100,10 @@ function pushValue (values, positions) {
         // keep a copy of the parent, in order to make enable reassigning dataLinkedCopy with an Array or Object (would loose reference otherwise)
         var dataLinkedCopyParent = dataLinkedCopy;
 
+        if (positions.length === i+1 && !(dataLinkedCopy[positions[i]] instanceof Array))
+            // TODO: besser machen
+            alert('Objekt- oder Arrayeintrag kann nicht als Objekt oder Array gespeichert werden, da bereits ein Objekt oder Array an dieser Stelle existiert');
+
         // override dataLinkedCopy each time with new deeper linked copy, keeping the reference so values actualy change in data, but data will not be reassigned
         if (dataLinkedCopy[positions[i]] instanceof Object && !(dataLinkedCopy[positions[i]] instanceof Array)) {
             dataLinkedCopy = dataLinkedCopy[positions[i]];
