@@ -74,6 +74,11 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
         if (e.keyCode === 13)
             pushValue(e.target.value, [input1.value, input2.value, input3.value]);
     });
+
+    document.getElementById('depth-wrapper').addEventListener('keyup', function(e) {
+        if (e.target)
+            console.log('x');
+    });
 }());
 
 function pushValue (values, positions) {
@@ -94,13 +99,16 @@ function pushValue (values, positions) {
 
     var dataLinkedCopy = data;
 
+    if (positions.length === 0)
+        alert('Sie müssen einen Ort definieren, an welchem die Werte eingefügt werden sollen.');
+
     // iterate over data
     for (var i = 0; i < positions.length; i++) {
 
         // keep a copy of the parent, in order to make enable reassigning dataLinkedCopy with an Array or Object (would loose reference otherwise)
         var dataLinkedCopyParent = dataLinkedCopy;
 
-        if (positions.length === i+1 && !(dataLinkedCopy[positions[i]] instanceof Array))
+        if (positions.length === i+1 && dataLinkedCopy[positions[i]] && !(dataLinkedCopy[positions[i]] instanceof Array))
             // TODO: besser machen
             alert('Objekt- oder Arrayeintrag kann nicht als Objekt oder Array gespeichert werden, da bereits ein Objekt oder Array an dieser Stelle existiert');
 
