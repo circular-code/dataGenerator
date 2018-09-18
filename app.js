@@ -1,26 +1,27 @@
 /** handle data **/
 
 var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
-    person: {
-        address: {
-            firstName: [],
-            lastName: [],
-            street: [],
-            streetNumber: [],
-            zip: [],
-        },
-        contact: {
-            phone: [],
-            mobile: [],
-            email: [],
-        },
-        banking: {
-            creditNumber: [],
-            bic: [],
-            iban: []
+        person: {
+            address: {
+                firstName: [],
+                lastName: [],
+                street: [],
+                streetNumber: [],
+                zip: [],
+            },
+            contact: {
+                phone: [],
+                mobile: [],
+                email: [],
+            },
+            banking: {
+                creditNumber: [],
+                bic: [],
+                iban: []
+            }
         }
-    }
-};
+    },
+    checkboxId = 0;
 
 // initialize
 (function(){
@@ -56,7 +57,11 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
 
     var input1 = document.getElementById('depth-input1'),
         input2 = document.getElementById('depth-input2'),
-        input3 = document.getElementById('depth-input3');
+        input3 = document.getElementById('depth-input3'),
+        rowCount = document.getElementById('rowCount'),
+        addRowsButton = document.getElementById('addRowsButton'),
+        copyRowsButton = document.getElementById('copyRowsButton'),
+        deleteRowsButton = document.getElementById('deleteRowsButton');
 
     select1.addEventListener('change', function() {
         input1.value = select1.value;
@@ -66,6 +71,16 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
     });
     select3.addEventListener('change', function() {
         input3.value = select3.value;
+    });
+
+    addRowsButton.addEventListener('click', function() {
+        appendRows(+rowCount.value);
+    });
+    copyRowsButton.addEventListener('click', function() {
+        copyRows();
+    });
+    deleteRowsButton.addEventListener('click', function() {
+        deleteRows();
     });
 
     //TODO: inputvalidierung ( alle positionen müssen der reihe nach ausgefüllt sein) --> warnung key X existiert nicht, er wird neu angelegt wenn sie bestätigen
@@ -81,6 +96,7 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
     });
 
     showValues();
+    appendRows(3);
 }());
 
 function pushValue (values, positions) {
@@ -169,6 +185,52 @@ function sanitizePositionsArray (array) {
             array.splice(k,1);
     }
     return array;
+}
+
+function generateInputGroup () {
+
+    var elem = document.createElement('div'),
+        inputGroup = ` <div class="selectData-input-group">
+                            <div class="pretty p-default"><input type="checkbox" id="box${checkboxId}"><div class="state">
+                            <label></label>
+                        </div></div>
+                            <input placeholder="name" type="text" id="key${checkboxId}">
+                            <input placeholder="name" type="text" id="value${checkboxId}">
+                            <input placeholder="50" type="text" id="amount${checkboxId}">
+                        </div>`;
+
+    elem.innerHTML = inputGroup;
+    checkboxId++;
+
+    return elem.firstElementChild;
+}
+
+function appendRows (amount) {
+
+    // NaN check
+    if (amount !== amount || typeof amount !== 'number' || amount <= 0)
+        return;
+
+    while (amount) {
+        document.getElementById('selectDataBody').appendChild(generateInputGroup());
+        amount--;
+    }
+}
+
+function deleteRows () {
+    [].slice.call(document.querySelectorAll('input:checked'), 0).forEach(function(input) {
+        if (input.checked === true)
+            input.parentElement.parentElement.remove();
+    });
+}
+
+function copyRows () {
+    var selectBody = document.getElementById('selectDataBody');
+    [].slice.call(document.querySelectorAll('input:checked'), 0).forEach(function(input) {
+        if (input.checked === true)
+            selectBody.appendChild(input.parentElement.parentElement.cloneNode(true));
+
+    });
 }
 
 function randomNumBetween (max, min) {
