@@ -139,7 +139,11 @@ pre {
     max-width: 220px;
 }
 
-#selectDataWrapper, #returnDataWrapper {
+#selectDataWrapper {
+    flex-grow: 3;
+}
+
+#returnDataWrapper {
     flex-grow: 1;
 }
 
@@ -154,12 +158,13 @@ body {
 
 #returnData {
     min-height: 400px;
+    font-size: 18px;
+    color: #484848;
 }
 
 .selectData-header, .selectData-input-group {
     display: flex;
 }
-
 
 .selectData-header > *, .selectData-input-group > * {
     flex-grow: 1;
@@ -167,6 +172,11 @@ body {
 
 .selectData-tools {
     margin-bottom: 1rem;
+    text-align: right;
+}
+
+.selectData-tools label {
+    margin-right: 0.5rem;
 }
 
 #selectDataWrapper input, #selectDataWrapper h4 {
@@ -185,7 +195,15 @@ button {
     transition: background-color 0.5s ease-in-out;
 }
 
-button:hover {
+button:hover, button.active {
     background-color: #0dafc2;
     color: white;
+}
+
+.button-row {
+    margin: 2rem 0;
+}
+
+button.full {
+    width: 100%;
 }

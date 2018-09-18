@@ -47,14 +47,14 @@
             <h1>Select Data</h1>
 
             <div class="selectData-tools">
-                <label for="changeAllAmount">Alle Anzahlen ändern</label>
-                <input type="text" name="changeAllAmount" id="changeAllAmount">
+                <label for="changeAllAmount">Change Amount of All Rows</label>
+                <input placeholder="100" type="text" name="changeAllAmount" id="changeAllAmount">
             </div>
 
             <div class="selectData-header">
                 <h4>Name</h4>
-                <h4>Werte</h4>
-                <h4>Anzahl</h4>
+                <h4>Values</h4>
+                <h4>Amount</h4>
             </div>
 
             <div class="selectData-input-group">
@@ -69,12 +69,19 @@
                 <input placeholder="50" type="text" id="amount2">
             </div>
 
-            <button>Neue Reihe hinzufügen</button>
-
+            <button>Add new row</button>
         </div>
         <div id="returnDataWrapper">
             <h1>Return Data</h1>
             <pre id="returnData"></pre>
+            <div class="button-row">
+                <button class="active">Javascript</button>
+                <button>JSON</button>
+                <button>XML</button>
+                <button>CSV</button>
+                <button>RAW</button>
+            </div>
+            <button class="full">generate!</button>
         </div>
     <script src="app.js"></script>
     </body>

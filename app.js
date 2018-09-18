@@ -147,6 +147,7 @@ function pushValue (values, positions) {
 
 function showValues() {
     document.getElementById('showAllData').textContent = JSON.stringify(data, null, 3);
+    document.getElementById('returnData').textContent = JSON.stringify(data, null, 3);
 }
 
 function sanitizeInputArray (array) {
