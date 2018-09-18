@@ -154,3 +154,37 @@ body {
 #returnData {
     min-height: 400px;
 }
+
+.selectData-header, .selectData-input-group {
+    display: flex;
+}
+
+
+.selectData-header > *, .selectData-input-group > * {
+    flex-grow: 1;
+}
+
+.selectData-tools {
+    margin-bottom: 1rem;
+}
+
+#selectDataWrapper input, #selectDataWrapper h4 {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: white;
+    outline: none;
+    border: 1px solid #0dafc2;
+    padding: 0.5rem 1.5rem;
+    color: #0dafc2;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+}
+
+button:hover {
+    background-color: #0dafc2;
+    color: white;
+}
