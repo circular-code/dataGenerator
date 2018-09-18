@@ -2,36 +2,54 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <title>Data Generator</title>
 
     </head>
 
     <body>
+        <header>Data Generator v.0.1</header>
+        <div id="addDataWrapper">
+            <h1>Add Data</h1>
 
-        <div id="fillData">
-            <label for="value">Values</label>
-            <input placeholder="Johannes, Magda, Jenny" type="text" id="value">
-            <label for="delimiter">Delimiter</label>
-            <input placeholder="," type="text" id="delimiter">
-
-            <div id="depth-wrapper">
+            <div id="depthWrapper">
+                <h4>Position</h4>
                 <div class="depth-pair">
                     <select class="data-depth" name="depth1" id="depth1"><option disabled selected value> -- select an option -- </option></select>
-                    <input type="text" id="depth-input1">
+                    <input placeholder="person" type="text" id="depth-input1">
                 </div>
                 <div class="depth-pair">
                     <select class="data-depth" name="depth2" id="depth2"><option disabled selected value> -- select an option -- </option></select>
-                    <input type="text" id="depth-input2">
+                    <input placeholder="address" type="text" id="depth-input2">
                 </div>
                 <div class="depth-pair">
                     <select class="data-depth" name="depth3" id="depth3"><option disabled selected value> -- select an option -- </option></select>
-                    <input type="text" id="depth-input3">
+                    <input placeholder="firstname" type="text" id="depth-input3">
                 </div>
             </div>
-            <pre id="showValues"></pre>
+
+            <div id="inputWrapper">
+                <div class="input-pair">
+                    <label for="value">Values</label>
+                    <input placeholder="Johannes, Magda, Jenny" type="text" id="value">
+                </div>
+                <div class="input-pair">
+                    <label for="delimiter">Delimiter</label>
+                    <input placeholder="," type="text" id="delimiter">
+                </div>
+            </div>
+            <h4>Available Data</h4>
+            <pre id="showAllData"></pre>
         </div>
-        <div id="target"></div>
+
+        <div id="selectDataWrapper">
+            <h1>Select Data</h1>
+        </div>
+        <div id="returnDataWrapper">
+            <h1>Return Data</h1>
+            <pre id="returnData"></pre>
+        </div>
     <script src="app.js"></script>
     </body>
 

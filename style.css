@@ -1,22 +1,156 @@
-.depth-pair {
-    margin: 10px;
+html, body, div, span, applet, object, iframe,
+ p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+    vertical-align: baseline;
+    font-family: Roboto, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input, select{
+    padding: 10px;
+    border: none;
+    background: #f3f3f3;
+}
+
+h1 {
+    text-transform: uppercase;
+    color: #a5a5a5;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 20px;
+}
+
+h4 {
+    margin-bottom: 0.3rem;
+}
+
+header {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #0dafc1;
+    letter-spacing: 2px;
+    background-color: #f3f3f3;
+    flex-basis: 100%;
     position: relative;
-    border: 1px solid darkgrey;
+    box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.3);
+}
+
+pre {
+    overflow: auto;
+    max-height: 500px;
+    background: #f3f3f3;
+    padding: 1rem;
+    font-size: 12px;
+}
+
+.input-pair {
+    margin-bottom: 1rem;
+}
+
+.input-pair input {
     width: 200px;
-    height: 19px;
+}
+
+.input-pair label {
+    margin-top: 1rem;
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.depth-pair {
+    margin: 0 0 1rem 0;
+    position: relative;
+    width: 220px;
+    height: 35px;
 }
 
 .depth-pair input {
     position: relative;
     z-index: 2;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
     border: none;
 }
 
 .depth-pair select {
     position: absolute;
     z-index: 1;
-    height: 19px;
+    height: 35px;
     width: 100%;
     border: none;
+}
+
+#addDataWrapper, #selectDataWrapper, #returnDataWrapper {
+    padding: 30px;
+    box-shadow: 4px -5px 16px -3px rgba(0,0,0,0.3);
+    min-height: calc(100vh - 8.1rem);
+}
+
+#addDataWrapper {
+    flex-basis: 220px;
+    max-width: 220px;
+}
+
+#selectDataWrapper, #returnDataWrapper {
+    flex-grow: 1;
+}
+
+#addData > *:not(:last-child) {
+    margin-right: 2rem;
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#returnData {
+    min-height: 400px;
 }

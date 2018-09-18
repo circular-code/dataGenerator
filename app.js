@@ -75,10 +75,12 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
             pushValue(e.target.value, [input1.value, input2.value, input3.value]);
     });
 
-    document.getElementById('depth-wrapper').addEventListener('keyup', function(e) {
-        if (e.target)
-            console.log('x');
+    document.getElementById('depthWrapper').addEventListener('keyup', function(e) {
+        if (e.target.tagName === 'INPUT')
+            e.target.previousElementSibling.value = '';
     });
+
+    showValues();
 }());
 
 function pushValue (values, positions) {
@@ -144,7 +146,7 @@ function pushValue (values, positions) {
 }
 
 function showValues() {
-    document.querySelector('pre').textContent = JSON.stringify(data, null, 3);
+    document.getElementById('showAllData').textContent = JSON.stringify(data, null, 3);
 }
 
 function sanitizeInputArray (array) {
