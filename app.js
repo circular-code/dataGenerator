@@ -217,3 +217,4 @@ function generateData (count) {
 // neue Spalte (key) anlegen --> validieren gültiger key/variablenName --> zu Objektstruktur hinzufügen
 // Spalten und Inhalte und Anzahl auswählen die exportiert werden sollen
 // output:javascript, json, xml, csv, raw (z.B. bei nur einer Spalte)
+// http://timelessrepo.com/json-isnt-a-javascript-subset
