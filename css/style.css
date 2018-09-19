@@ -176,7 +176,7 @@ pre {
 }
 
 .input-pair input {
-  width: 200px;
+  width: 220px;
 }
 
 .input-pair label {
@@ -213,13 +213,13 @@ pre {
 #returnDataWrapper {
   padding: 30px;
   /* box-shadow: 4px -5px 16px -3px rgba(0,0,0,0.3); */
-  min-height: calc(100vh - 8.1rem);
+  min-height: calc(100vh - 4.3rem);
   border-right: 2px solid #e6e6e6;
 }
 
 #addDataWrapper {
   flex-basis: 220px;
-  max-width: 220px;
+  max-width: 282px;
 }
 
 #selectDataWrapper {
@@ -251,8 +251,12 @@ body {
 }
 
 .selectData-header > *,
-.selectData-input-group > *:not(.pretty) {
+.selectData-input-group > input {
   flex-grow: 1;
+}
+
+.selectData-header {
+  padding-left: 55px;
 }
 
 .selectData-tools {
@@ -267,7 +271,15 @@ body {
 #selectDataWrapper input,
 #selectDataWrapper h4 {
   margin-right: 0.5rem;
-  margin-bottom: 0.7rem;
+}
+
+.selectData-input-group {
+  padding: 0.3rem;
+  border: 2px solid white;
+}
+
+#selectDataBody {
+  margin-bottom: 0.5rem;
 }
 
 button {
@@ -310,4 +322,25 @@ input#rowCount {
 
 input[type="checkbox"]:focus + div.state label:before {
   outline: 2px auto #0dafc1;
+}
+
+div.grip {
+  position: relative;
+  /* top: 9px; */
+  padding: 9px 5px;
+  cursor: move;
+  margin-right: 0.5rem;
+  color: #8a8a8a;
+}
+
+body .pretty {
+  margin-right: 0.5rem;
+}
+
+.dragging-active .selectData-input-group > * {
+  pointer-events: none;
+}
+
+* {
+  box-sizing: border-box;
 }

@@ -83,6 +83,42 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
         deleteRows();
     });
 
+    var dragTargetWrapper = document.getElementById('selectDataBody');
+
+    // row dragging
+    dragTargetWrapper.addEventListener('dragstart', function(e) {
+        e.target.style.opacity = 0.3;
+    });
+    dragTargetWrapper.addEventListener('dragover', function(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+
+        dragTargetWrapper.className = 'dragging-active';
+
+        var inputGroups = [].slice.call(dragTargetWrapper.querySelectorAll('.selectData-input-group'),0);
+        inputGroups.forEach(function(group) {
+            if (group !== e.target) {
+                group.style.border = "2px solid white";
+            }
+        });
+        if (e.target.className === "selectData-input-group")
+            e.target.style.border = "2px dashed #0dafc2";
+    });
+    dragTargetWrapper.addEventListener('drop', function(e) {
+        console.log('dropped on ' + e.target);
+    });
+    dragTargetWrapper.addEventListener('dragend', function(e) {
+        var inputGroups = [].slice.call(dragTargetWrapper.querySelectorAll('.selectData-input-group'),0);
+        inputGroups.forEach(function(group) {
+            if (group !== e.target) {
+                group.style.border = "2px solid white";
+            }
+        });
+        e.target.style.opacity = 1;
+        dragTargetWrapper.className = '';
+    });
+
     //TODO: inputvalidierung ( alle positionen müssen der reihe nach ausgefüllt sein) --> warnung key X existiert nicht, er wird neu angelegt wenn sie bestätigen
 
     document.getElementById('value').addEventListener('keyup', function(e) {
@@ -194,6 +230,7 @@ function generateInputGroup () {
                             <div class="pretty p-default"><input type="checkbox" id="box${checkboxId}"><div class="state">
                             <label></label>
                         </div></div>
+                            <div class="grip" id="grip${checkboxId}"><i class="fas fa-grip-vertical"></i></div>
                             <input placeholder="name" type="text" id="key${checkboxId}">
                             <input placeholder="name" type="text" id="value${checkboxId}">
                             <input placeholder="50" type="text" id="amount${checkboxId}">

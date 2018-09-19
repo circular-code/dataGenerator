@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="prettycheckbox.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prettycheckbox.css">
     <title>Random Data Generator</title>
 </head>
 
@@ -13,7 +14,6 @@
     <header>Random Data Generator v.0.1</header>
     <div id="addDataWrapper">
         <h1>Add Data</h1>
-
         <div id="depthWrapper">
             <h4>Position</h4>
             <div class="depth-pair">
@@ -69,16 +69,15 @@
         </div>
 
         <input placeholder="2" value="2" type="number" name="rowCount" id="rowCount">
-        <button id="addRowsButton">add new rows</button>
-        <button id="copyRowsButton">copy selected rows</button>
-        <button id="deleteRowsButton">delete selected rows</button>
+        <button id="addRowsButton"><i class="far fa-plus"></i> add new rows</button>
+        <button id="copyRowsButton"><i class="far fa-copy"></i> copy selected rows</button>
+        <button id="deleteRowsButton"><i class="far fa-trash-alt"></i> delete selected rows</button>
     </div>
     <div id="returnDataWrapper">
         <h1>Return Data</h1>
         <pre id="returnData"></pre>
         <div class="button-row">
-            <button class="active">Javascript</button>
-            <button>JSON</button>
+            <button class="active">JSON</button>
             <button>XML</button>
             <button>CSV</button>
             <button>RAW</button>
