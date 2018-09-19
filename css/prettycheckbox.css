@@ -61,7 +61,7 @@
   background-color: transparent;
 }
 .pretty .state label:before {
-  border-color: #bdc3c7;
+  border-color: #adadad;
 }
 .pretty .state.p-is-hover,
 .pretty .state.p-is-indeterminate {
@@ -296,7 +296,7 @@
   transform: scale(0.6);
 }
 .pretty.p-default input:checked ~ .state label:after {
-  background-color: #bdc3c7 !important;
+  background-color: #adadad!important;
 }
 .pretty.p-default.p-thick .state label:after,
 .pretty.p-default.p-thick .state label:before {

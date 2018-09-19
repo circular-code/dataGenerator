@@ -85,6 +85,15 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
 
     var dragTargetWrapper = document.getElementById('selectDataBody');
 
+    dragTargetWrapper.addEventListener('click', function(e) {
+        if (~e.target.id.indexOf('box')) {
+            if (~e.target.parentElement.parentElement.className.indexOf('selected'))
+                e.target.parentElement.parentElement.className = 'selectData-input-group';
+            else
+                e.target.parentElement.parentElement.className += ' selected';
+        }
+    });
+
     // row dragging
     dragTargetWrapper.addEventListener('dragstart', function(e) {
         e.target.style.opacity = 0.3;
@@ -102,7 +111,7 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
                 group.style.border = "2px solid white";
             }
         });
-        if (e.target.className === "selectData-input-group")
+        if (e.target.className === "selectData-input-group" || e.target.className === "selectData-input-group selected")
             e.target.style.border = "2px dashed #0dafc2";
     });
     dragTargetWrapper.addEventListener('drop', function(e) {

@@ -344,3 +344,7 @@ body .pretty {
 * {
   box-sizing: border-box;
 }
+
+.selectData-input-group.selected {
+  background: rgba(103, 178, 187, 0.24);
+}
