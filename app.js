@@ -25,6 +25,7 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
 
 // initialize
 (function(){
+    //TODO: überarbeiten
     var select1 = document.getElementById('depth1')
     for (var key_0 in data) {
         var option_0 = document.createElement('option');
@@ -94,9 +95,12 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
         }
     });
 
+    var dragItem;
+
     // row dragging
     dragTargetWrapper.addEventListener('dragstart', function(e) {
         e.target.style.opacity = 0.3;
+        dragItem = e.target.parentElement.parentElement;
     });
     dragTargetWrapper.addEventListener('dragover', function(e) {
         if (e.preventDefault) {
@@ -115,15 +119,19 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
             e.target.style.border = "2px dashed #0dafc2";
     });
     dragTargetWrapper.addEventListener('drop', function(e) {
-        console.log('dropped on ' + e.target);
-    });
-    dragTargetWrapper.addEventListener('dragend', function(e) {
+        e.target.parentElement.insertBefore(dragItem, e.target);
         var inputGroups = [].slice.call(dragTargetWrapper.querySelectorAll('.selectData-input-group'),0);
         inputGroups.forEach(function(group) {
-            if (group !== e.target) {
                 group.style.border = "2px solid white";
-            }
         });
+    });
+    dragTargetWrapper.addEventListener('dragend', function(e) {
+        // var inputGroups = [].slice.call(dragTargetWrapper.querySelectorAll('.selectData-input-group'),0);
+        // inputGroups.forEach(function(group) {
+        //     if (group !== e.target) {
+        //         group.style.border = "2px solid white";
+        //     }
+        // });
         e.target.style.opacity = 1;
         dragTargetWrapper.className = '';
     });

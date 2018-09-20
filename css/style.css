@@ -327,9 +327,8 @@ input[type="checkbox"]:focus + div.state label:before {
 div.grip {
   position: relative;
   /* top: 9px; */
-  padding: 9px 5px;
+  padding: 9px 9px;
   cursor: move;
-  margin-right: 0.5rem;
   color: #8a8a8a;
 }
 
