@@ -306,6 +306,7 @@ button.active {
 
 button.full {
   width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 input#rowCount {
@@ -347,3 +348,4 @@ body .pretty {
 .selectData-input-group.selected {
   background: rgba(103, 178, 187, 0.24);
 }
+

@@ -55,7 +55,7 @@
 
         <div class="selectData-tools">
             <label for="changeAllAmount">Change Amount of All Rows</label>
-            <input placeholder="100" type="text" name="changeAllAmount" id="changeAllAmount">
+            <input placeholder="100" type="number" name="changeAllAmount" id="changeAllAmount">
         </div>
 
         <div class="selectData-header">
@@ -82,7 +82,8 @@
             <button>CSV</button>
             <button>RAW</button>
         </div>
-        <button class="full">generate!</button>
+        <button id="generateAll" class="full">generate all</button>
+        <button id="generateSelected" class="full">generate selected</button>
     </div>
     <script src="app.js"></script>
 </body>
