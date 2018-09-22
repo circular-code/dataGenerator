@@ -1,6 +1,6 @@
 /** ------- handle base data ------- **/
 
-var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
+var data  = {
         person: {
             address: {
                 firstName: [],
@@ -26,6 +26,14 @@ var data  = JSON.parse(localStorage.getItem('dataGenerator')) || {
 //** ------- initialize ------- **/
 
 (function(){
+
+    // merge localStorage Data with basic data
+    var localdata = JSON.parse(localStorage.getItem('dataGenerator'));
+
+    if (localdata || typeofObj(localdata) !== 'object') {
+        extendData(localdata);
+    }
+
     //TODO: überarbeiten
     var select1 = document.getElementById('depth1')
     for (var key_0 in data) {
@@ -416,6 +424,23 @@ function generateHelper (selected) {
         rows = document.querySelectorAll('.selectData-input-group');
 
         generate(rows);
+}
+
+function typeofObj (obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+}
+
+function extendData (obj) {
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+
+            if (typeofObj(obj[key]) === 'object')
+                extendData(obj[key]);
+            else {
+                insertData(obj[key])
+            }
+        }
+    }
 }
 
 // TODO:
