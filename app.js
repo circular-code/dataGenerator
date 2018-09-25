@@ -30,8 +30,8 @@ var data  = {
     // merge localStorage Data with basic data
     var localdata = JSON.parse(localStorage.getItem('dataGenerator'));
 
-    if (localdata || typeofObj(localdata) !== 'object') {
-        extendData(localdata);
+    if (localdata && typeofObj(localdata) === 'object') {
+        data = merge(data, localdata);
     }
 
     //TODO: überarbeiten
@@ -430,17 +430,34 @@ function typeofObj (obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
 }
 
-function extendData (obj) {
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
+function merge (obj1, obj2) {
 
-            if (typeofObj(obj[key]) === 'object')
-                extendData(obj[key]);
-            else {
-                insertData(obj[key])
-            }
+    var returnObj = {};
+
+	for (var key in obj1) {
+
+		if (obj2.hasOwnProperty(key)) {
+
+			if (obj1[key] instanceof Array) {
+
+                returnObj[key] = obj1[key];
+
+				for (var i = 0; i < obj2[key].length; i++) {
+					if (returnObj[key].indexOf(obj2[key][i]) <= -1)
+                        returnObj[key].push(obj2[key][i]);
+				}
+			}
+			else
+                returnObj[key] = merge(obj1[key],obj2[key]);
         }
-    }
+		else
+            returnObj[key] = obj1[key];
+	}
+	for (var key2 in obj2) {
+		if (obj2.hasOwnProperty(key2) && !returnObj.hasOwnProperty(key2))
+            returnObj[key2] = obj2[key2];
+	}
+	return returnObj;
 }
 
 // TODO:
